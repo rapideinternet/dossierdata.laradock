@@ -1,4 +1,4 @@
-FROM adminer:4.3.0
+FROM adminer:latest
 
 # Version 4.3.1 contains PostgreSQL login errors. See docs.
 # See https://sourceforge.net/p/adminer/bugs-and-features/548/
@@ -22,6 +22,16 @@ RUN if [ ${INSTALL_MSSQL} = true ]; then \
   && echo "extension=sqlsrv.so" > /usr/local/etc/php/conf.d/20-sqlsrv.ini \
   && echo "extension=pdo_sqlsrv.so" > /usr/local/etc/php/conf.d/20-pdo_sqlsrv.ini \
 ;fi
+
+# Store PHP Configs at /usr/local/etc/php/conf.d
+RUN echo "upload_max_filesize = 500M" >> /usr/local/etc/php/conf.d/upload_large_dumps.ini \
+    && echo "post_max_size = 500M"       >> /usr/local/etc/php/conf.d/upload_large_dumps.ini \
+    && echo "memory_limit = -1"           >> /usr/local/etc/php/conf.d/upload_large_dumps.ini \
+    && echo "max_execution_time = 0"      >> /usr/local/etc/php/conf.d/upload_large_dumps.ini
+
+
+# Add volume for sessions to allow session persistence
+VOLUME /sessions
 
 USER adminer
 
