@@ -635,6 +635,17 @@ RUN if [ ${INSTALL_PG_CLIENT} = true ]; then \
     apt-get -y install postgresql-client \
 ;fi
 
+###########################################################################
+# IMAP:
+###########################################################################
+
+ARG INSTALL_IMAP=false
+ENV INSTALL_IMAP ${INSTALL_IMAP}
+RUN if [ ${INSTALL_IMAP} = true ]; then \
+    apt-get install -y libc-client-dev libkrb5-dev && \
+    apt-get install -y php7.1-imap \
+;fi
+
 #####################################
 # Dusk Dependencies:
 #####################################

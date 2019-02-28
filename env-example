@@ -10,13 +10,24 @@ APPLICATION=../
 ### Data Path:
 # For all storage systems.
 
-DATA_SAVE_PATH=~/.laradock/data
+DATA_SAVE_PATH=~/.laradock/dossierdata/data
 
 ### PHP version
 # Applies to the Workspace and PHP-FPM containers (Does not apply to HHVM)
 # Accepted values: 71 - 70 - 56
 
 PHP_VERSION=71
+
+### Docker compose files ##################################
+
+# Select which docker-compose files to include. If using docker-sync append `:docker-compose.sync.yml` at the end
+COMPOSE_FILE=docker-compose.yml
+
+# Change the separator from : to ; on Windows
+COMPOSE_PATH_SEPARATOR=:
+
+# Define the prefix of container names. This is useful if you have multiple projects that use laradock to have seperate containers per project.
+COMPOSE_PROJECT_NAME=dossierdata
 
 ### PHP interpreter
 # Accepted values: hhvm - php-fpm
